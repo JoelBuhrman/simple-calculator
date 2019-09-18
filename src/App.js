@@ -1,35 +1,56 @@
 import React from 'react'
+import { connect } from 'react-redux'
+
+import {
+  getFirstNumber,
+  getSecondNumber,
+  getThirdNumber,
+  getMethod,
+  getResult
+} from './selectors'
+import { SUM, MULTIPLY } from './constants'
 import { Box } from './components'
 
-const InputContent = ({ label }) => (
+const InputContent = ({ label, value }) => (
   <div>
     {label}:
-    <input type='number' />
+    <input type='number' value={value} />
   </div>
 )
 
-const App = () => (
+const App = ({ firstNumber, secondNumber, thirdNumber, method, result }) => (
   <div className='container'>
     <Box className={'blue'}>
-      <InputContent label='Value 1' />
+      <InputContent label='Value 1' value={firstNumber} />
     </Box>
     <Box className={'blue'}>
-      <InputContent label='Value 2' />
+      <InputContent label='Value 2' value={secondNumber} />
     </Box>
     <Box className={'blue'}>
-      <InputContent label='Value 3' />
+      <InputContent label='Value 3' value={thirdNumber} />
     </Box>
     <Box className={'pink'}>
       <div>
-        <input type='radio' /> Sum
+        <input type='radio' checked={method === SUM} /> Sum
         <br />
-        <input type='radio' /> Multiply
+        <input type='radio' checked={method === MULTIPLY} /> Multiply
         <br />
         <br />
-        Result:
+        {`Result: ${result}`}
       </div>
     </Box>
   </div>
 )
 
-export default App
+const mapStateToProps = state => ({
+  firstNumber: getFirstNumber(state),
+  secondNumber: getSecondNumber(state),
+  thirdNumber: getThirdNumber(state),
+  result: getResult(state),
+  method: getMethod(state)
+})
+
+export default connect(
+  mapStateToProps,
+  null
+)(App)
