@@ -1,9 +1,9 @@
-export const getFirstNumber = ({ calculator }) => calculator.firstNumber
+export const getFirstNumber = state => state.firstNumber
 
-export const getSecondNumber = ({ calculator }) => calculator.secondNumber
+export const getSecondNumber = state => state.secondNumber
 
-export const getThirdNumber = ({ calculator }) => calculator.thirdNumber
+export const getThirdNumber = state => state.thirdNumber
 
-export const getMethod = ({ calculator }) => calculator.method
+export const getMethod = state => state.method
 
-export const getResult = ({ calculator }) => calculator.result
+export const getResult = state => state.result
