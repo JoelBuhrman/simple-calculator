@@ -3,11 +3,10 @@ import {
   SET_SECOND_NUMBER,
   SET_THIRD_NUMBER,
   SET_METHOD,
-  CALCULATE
+  CALCULATE,
+  SUM,
+  MULTIPLY
 } from '../constants'
-
-const SUM = '+'
-const MULTIPLY = '*'
 
 const defaultState = {
   firstNumber: 0,

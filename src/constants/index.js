@@ -3,7 +3,9 @@ import {
   SET_SECOND_NUMBER,
   SET_THIRD_NUMBER,
   SET_METHOD,
-  CALCULATE
+  CALCULATE,
+  SUM,
+  MULTIPLY
 } from './calcluatorConstants'
 
 export {
@@ -11,5 +13,7 @@ export {
   SET_SECOND_NUMBER,
   SET_THIRD_NUMBER,
   SET_METHOD,
-  CALCULATE
+  CALCULATE,
+  SUM,
+  MULTIPLY
 }
