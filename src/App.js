@@ -1,6 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
-
+import { bindActionCreators } from 'redux'
+import {
+  setFirstNumber,
+  setSecondNumber,
+  setThirdNumber,
+  setMethod,
+  calculate
+} from './actions'
 import {
   getFirstNumber,
   getSecondNumber,
@@ -8,39 +15,61 @@ import {
   getMethod,
   getResult
 } from './selectors'
-import { SUM, MULTIPLY } from './constants'
-import { Box } from './components'
+import { Box, InputContent, ResultContent } from './components'
 
-const InputContent = ({ label, value }) => (
-  <div>
-    {label}:
-    <input type='number' value={value} />
-  </div>
-)
+const App = ({
+  firstNumber,
+  secondNumber,
+  thirdNumber,
+  method,
+  result,
+  setMethod,
+  setFirstNumber,
+  setSecondNumber,
+  setThirdNumber,
+  calculate
+}) => {
+  const updateMethod = method => {
+    setMethod(method)
+    calculate()
+  }
 
-const App = ({ firstNumber, secondNumber, thirdNumber, method, result }) => (
-  <div className='container'>
-    <Box className={'blue'}>
-      <InputContent label='Value 1' value={firstNumber} />
-    </Box>
-    <Box className={'blue'}>
-      <InputContent label='Value 2' value={secondNumber} />
-    </Box>
-    <Box className={'blue'}>
-      <InputContent label='Value 3' value={thirdNumber} />
-    </Box>
-    <Box className={'pink'}>
-      <div>
-        <input type='radio' checked={method === SUM} /> Sum
-        <br />
-        <input type='radio' checked={method === MULTIPLY} /> Multiply
-        <br />
-        <br />
-        {`Result: ${result}`}
-      </div>
-    </Box>
-  </div>
-)
+  return (
+    <div className='container'>
+      <Box className={'blue'}>
+        <InputContent
+          label='Value 1'
+          value={firstNumber}
+          setValue={setFirstNumber}
+          calculate={calculate}
+        />
+      </Box>
+      <Box className={'blue'}>
+        <InputContent
+          label='Value 2'
+          value={secondNumber}
+          setValue={setSecondNumber}
+          calculate={calculate}
+        />
+      </Box>
+      <Box className={'blue'}>
+        <InputContent
+          label='Value 3'
+          value={thirdNumber}
+          setValue={setThirdNumber}
+          calculate={calculate}
+        />
+      </Box>
+      <Box className={'pink'}>
+        <ResultContent
+          method={method}
+          result={result}
+          updateMethod={updateMethod}
+        />
+      </Box>
+    </div>
+  )
+}
 
 const mapStateToProps = state => ({
   firstNumber: getFirstNumber(state),
@@ -50,7 +79,17 @@ const mapStateToProps = state => ({
   method: getMethod(state)
 })
 
+const mapDispatchToProps = dispatch => {
+  return {
+    dispatch,
+    ...bindActionCreators(
+      { setFirstNumber, setSecondNumber, setThirdNumber, setMethod, calculate },
+      dispatch
+    )
+  }
+}
+
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(App)
